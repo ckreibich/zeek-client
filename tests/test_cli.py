@@ -81,8 +81,13 @@ class TestBundledCliInvocation(unittest.TestCase):
 
             # We should now be able to run "./bin/zeek-client --help".
             cproc = subprocess.run([os.path.join(tmpdir, 'bin', 'zeek-client'), '--help'],
-                                   check=True, capture_output=True)
-            self.assertEqual(cproc.returncode, 0)
+                                   capture_output=True)
+            if cproc.returncode != 0:
+                print('==== STDOUT ====')
+                print(cproc.stdout.decode('utf-8'))
+                print('==== STDERR ====')
+                print(cproc.stderr.decode('utf-8'))
+                self.fail('zeek-client invocation failed')
 
 
 class TestCliBasics(unittest.TestCase):
