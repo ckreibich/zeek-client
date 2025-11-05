@@ -53,6 +53,9 @@ jobs:
       id-token: write  # This uses trusted publishing
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
       - name: Check release version
         # This fails e.g. if VERSION contains a dev commits suffix,
         # since we don't want to push these to PyPI.
